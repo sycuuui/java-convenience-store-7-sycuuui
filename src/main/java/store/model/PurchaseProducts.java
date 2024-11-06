@@ -3,13 +3,13 @@ package store.model;
 import java.util.HashMap;
 
 public class PurchaseProducts {
-    private HashMap<String,Integer> purchaseProducts;
+    private final HashMap<String, PurchaseProductInfo> purchaseProducts;
 
     public PurchaseProducts() {
         this.purchaseProducts = new HashMap<>();
     }
 
-    public void addPurchaseProducts(String name, int quantity) {
-        purchaseProducts.put(name,quantity);
+    public void addPurchaseProducts(String name, PurchaseProductInfo purchaseProductInfo) {
+        purchaseProducts.put(name, purchaseProductInfo);
     }
 }

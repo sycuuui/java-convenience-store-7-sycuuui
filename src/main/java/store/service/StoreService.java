@@ -2,6 +2,7 @@ package store.service;
 
 import store.model.Products;
 import store.model.Promotions;
+import store.model.PurchaseProductInfo;
 import store.model.PurchaseProducts;
 
 public class StoreService {
@@ -16,12 +17,15 @@ public class StoreService {
     }
 
     public void savePurchaseProducts(String[] splitCommaInput) {
-        for(String box: splitCommaInput) {
+        for (String box : splitCommaInput) {
             String replaceBox = box.replace("[", "");
             String replaceBox2 = replaceBox.replace("]", "");
 
             String[] productNameAndQuantity = replaceBox2.split("-");
-            purchaseProducts.addPurchaseProducts(productNameAndQuantity[0],Integer.parseInt(productNameAndQuantity[1]));
+            String name = productNameAndQuantity[0];
+            int quantity = Integer.parseInt(productNameAndQuantity[1]);
+
+            purchaseProducts.addPurchaseProducts(name, new PurchaseProductInfo(promotions.hasPromotion(name), quantity));
         }//end for loop
     }
 }

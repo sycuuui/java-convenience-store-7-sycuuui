@@ -11,8 +11,11 @@ public class Promotions {
         this.promotions = new HashMap<>();
     }
 
-    public void addPromotion(String name, Promotion promotion) {
+    public void addPromotion(final String name, final Promotion promotion) {
         promotions.put(name, promotion);
     }
 
+    public boolean hasPromotion(String name) {
+        return promotions.get(name) != null;
+    }
 }

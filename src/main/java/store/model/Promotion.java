@@ -10,7 +10,7 @@ public class Promotion {
     private final LocalDate start_date;
     private final LocalDate end_date;
 
-    public Promotion(PromotionReq promotionReq) {
+    public Promotion(final PromotionReq promotionReq) {
         this.buy = promotionReq.buy();
         this.get = promotionReq.get();
         this.start_date = promotionReq.start_date();
