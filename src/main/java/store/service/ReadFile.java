@@ -18,9 +18,9 @@ public class ReadFile {
     private Products products;
     private Promotions promotions;
 
-    public ReadFile() {
-        this.products = new Products();
-        this.promotions = new Promotions();
+    public ReadFile(Products products, Promotions promotions) {
+        this.products = products;
+        this.promotions = promotions;
     }
 
     public void readPromotionsFile() {

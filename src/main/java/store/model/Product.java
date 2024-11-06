@@ -14,4 +14,12 @@ public class Product {
         this.qunantity = productReq.quantity();
         this.promotion = productReq.promotion();
     }
+
+    public int getQunantity() {
+        return this.qunantity;
+    }
+
+    public boolean equalName(String name) {
+        return name.equals(this.name);
+    }
 }
