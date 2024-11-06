@@ -17,15 +17,17 @@ public class Input {
         this.products = products;
     }
 
-    public void requestProducts() {
+    public String[] requestProducts() {
         System.out.println(NoticeMessage.INPUT_PRODUCT.getMessage());
 
         String input = Console.readLine();
-        String[] splitInput = input.split(",", -1);
-        while (purchaseValidator.requestProducts(splitInput, products)) {
+        String[] splitCommaInput = input.split(",", -1);
+        while (purchaseValidator.requestProducts(splitCommaInput, products)) {
             input = Console.readLine();
-            splitInput = input.split(",", -1);
+            splitCommaInput = input.split(",", -1);
         }
+
+        return splitCommaInput;
     }
 
     public boolean requestQuestion(String question) {
