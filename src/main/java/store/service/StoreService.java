@@ -3,16 +3,13 @@ package store.service;
 import store.model.Products;
 import store.model.Promotions;
 import store.model.PurchaseProducts;
+import store.view.Input;
 
 public class StoreService {
-    private Products products;
-    private Promotions promotions;
     private PurchaseProducts purchaseProducts;
 
-    public StoreService(Products products, Promotions promotions) {
-        this.products = products;
-        this.promotions = promotions;
-        this.purchaseProducts = new PurchaseProducts();
+    public StoreService(PurchaseProducts purchaseProducts) {
+        this.purchaseProducts = purchaseProducts;
     }
 
     public void savePurchaseProducts(String[] splitCommaInput) {
@@ -27,4 +24,6 @@ public class StoreService {
             purchaseProducts.addPurchaseProducts(name, quantity);
         }//end for loop
     }
+
+
 }

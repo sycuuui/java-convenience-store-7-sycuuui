@@ -85,11 +85,7 @@ public class ReadFile {
         ProductReq productReq = new ProductReq(name, price, quantity);
         Product product = new Product(productReq);
 
-        if (promotion != null) {
-            products.addPromotionProduct(product, findPromotion(name));
-            return;
-        }
-        products.addProduct(product);
+        products.addProduct(product, findPromotion(promotion));
     }
 
     public Promotion findPromotion(String name) {

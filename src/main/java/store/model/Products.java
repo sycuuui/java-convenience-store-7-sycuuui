@@ -9,24 +9,30 @@ import java.util.Map;
 
 public class Products {
     private final List<Product> products;
-    private final HashMap<Product, Promotion> promotionProducts;
+    private final PromotionProducts promotionProducts;
 
     public Products() {
         this.products = new ArrayList<>();
-        this.promotionProducts = new HashMap<>();
+        this.promotionProducts = new PromotionProducts();
     }
 
-    public void addProduct(final Product product) {
+    public void addProduct(Product product, Promotion promotion) {
+        if (promotion != null) {
+            promotionProducts.addPromotionProduct(product, promotion);
+        }
         products.add(product);
-    }
-
-    public void addPromotionProduct(final Product product, final Promotion promotion) {
-        promotionProducts.put(product, promotion);
     }
 
     public boolean isExistProduct(String name) {
         return products.stream()
                 .anyMatch(product -> product.equalName(name));
+    }
+
+    public int getTotalProductQuantity(String name) {
+        return products.stream()
+                .filter(product -> product.equalName(name))
+                .mapToInt(Product::getQuantity)
+                .sum();
     }
 
     /**
@@ -35,22 +41,21 @@ public class Products {
      * @return 구매할 양이 상품 개수보다 많으면 false
      **/
     public boolean isNotOverProductsQuantity(String name, int purchaseQuantity) {
-        int totalProductQuantity = products.stream()
-                .filter(product -> product.equalName(name))
-                .mapToInt(Product::getQuantity)
-                .sum();
+        int totalQuantity = getTotalProductQuantity(name) + promotionProducts.getTotalPromotionProductQuantity(name);
 
-        int totalPromotionProductQuantity = promotionProducts.keySet().stream()
-                .filter(product -> product.equalName(name))
-                .mapToInt(Product::getQuantity)
-                .sum();
-
-        return (purchaseQuantity >= (totalProductQuantity + totalPromotionProductQuantity));
+        return purchaseQuantity <= totalQuantity;
     }
 
-    public Promotion getPromotionProductByName(String name) {
-        return (Promotion) promotionProducts.entrySet().stream()
-                .filter(entry -> entry.getKey().equalName(name))
-                .map(Map.Entry::getValue);
+    public int getTotalByPromotionProducts(String name) {
+        return promotionProducts.getTotalPromotionProductQuantity(name);
     }
+
+    public Promotion getPromotionByPromotionProducts(String name) {
+        return promotionProducts.getPromotionProductByName(name);
+    }
+
+    public boolean getIsExistByPromotionProducts(String name) {
+        return promotionProducts.isExist(name);
+    }
+
 }

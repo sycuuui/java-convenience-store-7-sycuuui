@@ -13,10 +13,6 @@ public class Promotions {
         promotions.put(name, promotion);
     }
 
-    public boolean hasPromotion(String name) {
-        return (promotions.get(name) != null);
-    }
-
     public Promotion findPromotion(String name) {
         return promotions.get(name);
     }
