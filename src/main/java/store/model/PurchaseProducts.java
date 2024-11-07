@@ -2,14 +2,15 @@ package store.model;
 
 import java.util.HashMap;
 
+
 public class PurchaseProducts {
-    private final HashMap<String, PurchaseProductInfo> purchaseProducts;
+    private final HashMap<String, Integer> purchaseDetails;
 
     public PurchaseProducts() {
-        this.purchaseProducts = new HashMap<>();
+        this.purchaseDetails = new HashMap<>();
     }
 
-    public void addPurchaseProducts(String name, PurchaseProductInfo purchaseProductInfo) {
-        purchaseProducts.put(name, purchaseProductInfo);
+    public void addPurchaseProducts(String name, Integer purchaseQuantity) {
+        purchaseDetails.put(name, purchaseQuantity);
     }
 }

@@ -2,8 +2,9 @@ package store.service;
 
 import store.model.Products;
 import store.model.Promotions;
-import store.model.PurchaseProductInfo;
 import store.model.PurchaseProducts;
+
+import java.util.List;
 
 public class StoreService {
     private Products products;
@@ -25,7 +26,7 @@ public class StoreService {
             String name = productNameAndQuantity[0];
             int quantity = Integer.parseInt(productNameAndQuantity[1]);
 
-            purchaseProducts.addPurchaseProducts(name, new PurchaseProductInfo(promotions.hasPromotion(name), quantity));
+            purchaseProducts.addPurchaseProducts(name, quantity);
         }//end for loop
     }
 }

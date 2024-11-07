@@ -82,9 +82,13 @@ public class ReadFile {
         int quantity = Integer.parseInt(datas[2]);
         String promotion = datas[3];
 
-        ProductReq productReq = new ProductReq(name, price, quantity, promotion);
+        ProductReq productReq = new ProductReq(name, price, quantity);
         Product product = new Product(productReq);
 
+        if (promotion != null) {
+            products.addPromotionProduct(product, promotion);
+            return;
+        }
         products.addProduct(product);
     }
 }
