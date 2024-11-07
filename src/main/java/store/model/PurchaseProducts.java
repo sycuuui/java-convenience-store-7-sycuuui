@@ -13,4 +13,8 @@ public class PurchaseProducts {
     public void addPurchaseProducts(String name, Integer purchaseQuantity) {
         purchaseDetails.put(name, purchaseQuantity);
     }
+
+    public HashMap<String,Integer> getPurchaseDetails() {
+        return purchaseDetails;
+    }
 }

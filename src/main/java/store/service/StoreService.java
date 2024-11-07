@@ -4,8 +4,6 @@ import store.model.Products;
 import store.model.Promotions;
 import store.model.PurchaseProducts;
 
-import java.util.List;
-
 public class StoreService {
     private Products products;
     private Promotions promotions;

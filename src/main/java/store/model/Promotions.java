@@ -1,8 +1,6 @@
 package store.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Promotions {
     private final HashMap<String, Promotion> promotions;
@@ -16,6 +14,10 @@ public class Promotions {
     }
 
     public boolean hasPromotion(String name) {
-        return promotions.get(name) != null;
+        return (promotions.get(name) != null);
+    }
+
+    public Promotion findPromotion(String name) {
+        return promotions.get(name);
     }
 }
