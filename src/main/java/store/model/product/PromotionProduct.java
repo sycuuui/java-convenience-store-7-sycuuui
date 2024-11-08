@@ -18,4 +18,33 @@ public class PromotionProduct {
     public boolean isPromotionPeriod() {
         return promotion.isActive();
     }
+
+    /**
+     * @param purchaseQuantity 구매할 수량
+     * @return 증정 수량
+     */
+    public int calculatePresentQuantity(int purchaseQuantity) {
+        return (purchaseQuantity / promotion.calculatorLimit());
+    }
+
+    /**
+     * @param presentQuantity 증정 수량
+     * @return 프로모션 적용 수량
+     */
+    public int calculateApplyPromotionQuantity(int presentQuantity) {
+        return presentQuantity * promotion.calculatorLimit();
+    }
+
+    /**
+     * 프로모션 추가 적용 질문이 필요한지 판단 메소드
+     *
+     * @param purchaseQuantity
+     * @return 남은 수량이 limit-1과 같을 경우 true
+     */
+    public boolean isNeedQuestionAboutAdd(int purchaseQuantity) {
+        int limit = promotion.calculatorLimit();
+        int remainQuantity = purchaseQuantity % limit;
+        return (remainQuantity == (limit - 1));
+    }
+
 }
