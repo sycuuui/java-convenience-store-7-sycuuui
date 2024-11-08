@@ -8,12 +8,12 @@ import store.view.Input;
 
 import java.util.Optional;
 
-public class PurchaseService {
+public class PromotionService {
     private final Products products;
     private final PurchaseProducts purchaseProducts;
     private final InputHandler inputHandler;
 
-    public PurchaseService(Products products, PurchaseProducts purchaseProducts, Input input) {
+    public PromotionService(Products products, PurchaseProducts purchaseProducts, Input input) {
         this.products = products;
         this.purchaseProducts = purchaseProducts;
         this.inputHandler = new InputHandler(input);

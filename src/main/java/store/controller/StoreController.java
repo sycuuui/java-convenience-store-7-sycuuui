@@ -3,7 +3,7 @@ package store.controller;
 import store.model.product.Products;
 import store.model.promotion.Promotions;
 import store.model.PurchaseProducts;
-import store.service.PurchaseService;
+import store.service.PromotionService;
 import store.service.ReadFile;
 import store.service.StoreService;
 import store.view.Input;
@@ -34,7 +34,7 @@ public class StoreController {
         StoreService storeService = new StoreService(purchaseProducts);
         storeService.savePurchaseProducts(splitCommaInput);
 
-        PurchaseService purchaseService = new PurchaseService(products, purchaseProducts, input);
+        PromotionService purchaseService = new PromotionService(products, purchaseProducts, input);
         purchaseService.applyPromotion();
     }
 }
