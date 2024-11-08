@@ -25,7 +25,7 @@ public class Products {
         return findPromotionProduct(productName).getProductQuantity();
     }
 
-    public void addProduct(String productName, Product product, Promotion promotion) {
+    public void putProduct(String productName, Product product, Promotion promotion) {
         if (promotion != null) {
             promotionProducts.put(productName, new PromotionProduct(product, promotion));
         }

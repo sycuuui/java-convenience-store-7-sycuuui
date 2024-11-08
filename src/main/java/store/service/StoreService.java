@@ -18,7 +18,7 @@ public class StoreService {
             String name = productNameAndQuantity[0];
             int quantity = Integer.parseInt(productNameAndQuantity[1]);
 
-            purchaseProducts.addPurchaseProducts(name, quantity);
+            purchaseProducts.putPurchaseDetail(name, quantity);
         }//end for loop
     }
 

@@ -53,7 +53,7 @@ public class ReadFile {
         PromotionReq promotionReq = new PromotionReq(buy, get, start_date, end_date);
         Promotion promotion = new Promotion(promotionReq);
 
-        promotions.addPromotion(name, promotion);
+        promotions.putPromotion(name, promotion);
     }
 
     public void readProductsFile() {
@@ -85,7 +85,7 @@ public class ReadFile {
         ProductReq productReq = new ProductReq(name, price, quantity);
         Product product = new Product(productReq);
 
-        products.addProduct(name, product, findPromotion(promotion));
+        products.putProduct(name, product, findPromotion(promotion));
     }
 
     public Promotion findPromotion(String name) {

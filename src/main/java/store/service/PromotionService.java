@@ -23,7 +23,10 @@ public class PromotionService {
      * 구매할 상품들 각 프로모션 적용
      */
     public void applyPromotion() {
-        purchaseProducts.getPurchaseDetails().forEach(this::processPurchaseProduct);
+        purchaseProducts.getPurchaseDetails().forEach((productName, purchaseQuantity) -> {
+            processPromotion(productName, purchaseQuantity)
+                    .ifPresent(quantityRes -> purchaseProducts.putPurchasePromotionDetail(productName, quantityRes));
+        });
     }
 
     /**

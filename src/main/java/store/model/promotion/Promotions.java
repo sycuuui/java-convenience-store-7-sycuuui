@@ -9,7 +9,7 @@ public class Promotions {
         this.promotions = new HashMap<>();
     }
 
-    public void addPromotion(final String name, final Promotion promotion) {
+    public void putPromotion(final String name, final Promotion promotion) {
         promotions.put(name, promotion);
     }
 
