@@ -1,11 +1,11 @@
-package store.service;
+package store.repository;
 
 import store.model.PurchaseProducts;
 
-public class StoreService {
+public class PurchaseProductRepository {
     private PurchaseProducts purchaseProducts;
 
-    public StoreService(PurchaseProducts purchaseProducts) {
+    public PurchaseProductRepository(PurchaseProducts purchaseProducts) {
         this.purchaseProducts = purchaseProducts;
     }
 

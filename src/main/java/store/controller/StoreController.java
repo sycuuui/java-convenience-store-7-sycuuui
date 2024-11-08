@@ -4,10 +4,11 @@ import store.handler.InputHandler;
 import store.model.product.Products;
 import store.model.promotion.Promotions;
 import store.model.PurchaseProducts;
+import store.repository.ProductRepository;
 import store.service.MembershipService;
 import store.service.PromotionService;
-import store.service.ReadFile;
-import store.service.StoreService;
+import store.repository.PromotionRepository;
+import store.repository.PurchaseProductRepository;
 import store.view.Input;
 
 public class StoreController {
@@ -22,9 +23,11 @@ public class StoreController {
     }
 
     public void readFiles() {
-        ReadFile readFile = new ReadFile(products, promotions);
-        readFile.readPromotionsFile();
-        readFile.readProductsFile();
+        PromotionRepository promotionRepository = new PromotionRepository(promotions);
+        promotionRepository.readPromotionsFile();
+
+        ProductRepository productRepository = new ProductRepository(products, promotions);
+        productRepository.readProductsFile();
     }
 
     public void play() {
@@ -35,7 +38,7 @@ public class StoreController {
 
         InputHandler inputHandler = new InputHandler(input);
 
-        StoreService storeService = new StoreService(purchaseProducts);
+        PurchaseProductRepository storeService = new PurchaseProductRepository(purchaseProducts);
         storeService.savePurchaseProducts(splitCommaInput);
 
         PromotionService purchaseService = new PromotionService(products, purchaseProducts, inputHandler);
