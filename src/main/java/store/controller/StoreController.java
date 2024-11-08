@@ -13,9 +13,9 @@ import store.repository.PurchaseProductRepository;
 import store.view.Input;
 
 public class StoreController {
-    private Products products;
-    private Promotions promotions;
-    private PurchaseProducts purchaseProducts;
+    private final Products products;
+    private final Promotions promotions;
+    private final PurchaseProducts purchaseProducts;
 
     public StoreController() {
         this.products = new Products();
@@ -23,7 +23,18 @@ public class StoreController {
         this.purchaseProducts = new PurchaseProducts();
     }
 
-    public void readFiles() {
+    public void play() {
+        processFile();
+
+        Input input = new Input(products);
+        InputHandler inputHandler = new InputHandler(input);
+
+        processPurchaseProducts(input);
+        processBenefit(inputHandler);
+        processStock();
+    }
+
+    public void processFile() {
         PromotionRepository promotionRepository = new PromotionRepository(promotions);
         promotionRepository.readPromotionsFile();
 
@@ -31,24 +42,24 @@ public class StoreController {
         productRepository.readProductsFile();
     }
 
-    public void play() {
-        readFiles();
-
-        Input input = new Input(products);
+    public void processPurchaseProducts(Input input) {
         String[] splitCommaInput = input.requestProducts();
+        PurchaseProductRepository purchaseProductRepository = new PurchaseProductRepository(purchaseProducts);
 
-        InputHandler inputHandler = new InputHandler(input);
+        purchaseProductRepository.savePurchaseProducts(splitCommaInput);
+    }
 
-        PurchaseProductRepository storeService = new PurchaseProductRepository(purchaseProducts);
-        storeService.savePurchaseProducts(splitCommaInput);
-
+    public void processBenefit(InputHandler inputHandler) {
         PromotionService purchaseService = new PromotionService(products, purchaseProducts, inputHandler);
         purchaseService.applyPromotion();
 
         MembershipService membershipService = new MembershipService(inputHandler);
         membershipService.ask();
+    }
 
+    public void processStock() {
         ProductService productService = new ProductService(products, purchaseProducts);
         productService.updateProductsStock();
     }
+
 }
