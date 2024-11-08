@@ -6,6 +6,7 @@ import store.model.promotion.Promotions;
 import store.model.PurchaseProducts;
 import store.repository.ProductRepository;
 import store.service.MembershipService;
+import store.service.ProductService;
 import store.service.PromotionService;
 import store.repository.PromotionRepository;
 import store.repository.PurchaseProductRepository;
@@ -47,5 +48,7 @@ public class StoreController {
         MembershipService membershipService = new MembershipService(inputHandler);
         membershipService.ask();
 
+        ProductService productService = new ProductService(products, purchaseProducts);
+        productService.updateProductsStock();
     }
 }

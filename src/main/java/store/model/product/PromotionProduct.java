@@ -46,4 +46,8 @@ public class PromotionProduct {
         int remainQuantity = purchaseQuantity % limit;
         return (remainQuantity == (limit - 1));
     }
+
+    public void appliedSoldQuantity(int soldQuantity) {
+        product.appliedSoldQuantity(soldQuantity);
+    }
 }

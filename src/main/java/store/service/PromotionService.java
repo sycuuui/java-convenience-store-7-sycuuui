@@ -23,7 +23,7 @@ public class PromotionService {
      */
     public void applyPromotion() {
         purchaseProducts.getPurchaseDetails().forEach((productName, purchaseQuantity) -> {
-            processPromotion(productName, purchaseQuantity)
+            processPurchaseProduct(productName, purchaseQuantity)
                     .ifPresent(quantityRes -> purchaseProducts.putPurchasePromotionDetail(productName, quantityRes));
         });
     }
@@ -48,7 +48,6 @@ public class PromotionService {
 
         //프로모션 수량이 구매 수량보다 크거나 같을때
         if (!products.isOverPromotionProductQuantity(productName, purchaseQuantity)) {
-            //프로모션 추가 수량이 있는지 판단
             presentQuantity = applyAdditionalPromotionQuantity(productName, purchaseQuantity, presentQuantity);
             appliedPromotionQuantity = products.getAppliedPromotionQuantityByPromotionProduct(productName, presentQuantity);
             return Optional.of(new QuantityRes(presentQuantity, appliedPromotionQuantity));
@@ -70,11 +69,18 @@ public class PromotionService {
         return true;
     }
 
+    /**
+     * 프로모션 추가 수량 적용 판단과 응답 요청 메소드
+     *
+     * @param productName      상품 이름
+     * @param purchaseQuantity 구매 수량
+     * @param presentQuantity  할인 수량
+     * @return 할인 수량
+     */
     private int applyAdditionalPromotionQuantity(String productName, int purchaseQuantity, int presentQuantity) {
         if (products.getIsNeedQuestionAboutAddByPromotionProduct(productName, purchaseQuantity)) {
             return presentQuantity;
         }
-        //사용자에게 추가 수량에 대해 응답 요청
         if (!inputHandler.askAboutAdd(productName)) {
             return presentQuantity;
         }
@@ -89,11 +95,11 @@ public class PromotionService {
      * @param appliedPromotionQuantity 프로모션 적용된 상품 수량
      */
     private void handleUnappliedPromotionQuantity(String productName, int purchaseQuantity, int appliedPromotionQuantity) {
-        int notApplyPromotionQuantity = purchaseQuantity - appliedPromotionQuantity;
+        int UnappliedPromotionQuantity = purchaseQuantity - appliedPromotionQuantity;
 
-        if (notApplyPromotionQuantity > 0) {
-            if (inputHandler.askAboutShortage(productName, notApplyPromotionQuantity)) {
-                purchaseProducts.minusNotApplyPromotionQuantity(productName, notApplyPromotionQuantity);
+        if (UnappliedPromotionQuantity > 0) {
+            if (inputHandler.askAboutShortage(productName, UnappliedPromotionQuantity)) {
+                purchaseProducts.minusUnappliedPromotionQuantity(productName, UnappliedPromotionQuantity);
             }
         }//end if
     }

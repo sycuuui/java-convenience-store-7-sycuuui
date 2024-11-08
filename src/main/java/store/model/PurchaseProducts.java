@@ -14,17 +14,25 @@ public class PurchaseProducts {
         this.purchasePromotionDetails = new HashMap<>();
     }
 
-    public void putPurchaseDetail(String name, Integer purchaseQuantity) {
-        purchaseDetails.put(name, purchaseQuantity);
+    public void putPurchaseDetail(String productName, Integer purchaseQuantity) {
+        purchaseDetails.put(productName, purchaseQuantity);
     }
 
-    public void putPurchasePromotionDetail(String name, QuantityRes quantityRes) {
-        purchasePromotionDetails.put(name, quantityRes);
+    public void putPurchasePromotionDetail(String productName, QuantityRes quantityRes) {
+        purchasePromotionDetails.put(productName, quantityRes);
     }
 
-    public void minusNotApplyPromotionQuantity(String name, int notApplyPromotionQuantity) {
-        int quantity = purchaseDetails.get(name);
-        purchaseDetails.put(name, (quantity - notApplyPromotionQuantity));
+    public void minusUnappliedPromotionQuantity(String productName, int UnappliedPromotionQuantity) {
+        int quantity = purchaseDetails.get(productName);
+        purchaseDetails.put(productName, (quantity - UnappliedPromotionQuantity));
+    }
+
+    public boolean hasPurchasePromotion(String productName) {
+        return purchasePromotionDetails.containsKey(productName);
+    }
+
+    public int getAppliedPromotionQuantity(String productName) {
+        return purchasePromotionDetails.get(productName).appliedPromotionQuantity();
     }
 
     public HashMap<String, Integer> getPurchaseDetails() {

@@ -68,4 +68,12 @@ public class Products {
         return (getPromotionProductQuantity(productName) < purchaseQuantity);
     }
 
+    public void appliedPurchaseQuantityToPromotionProduct(String productName, int soldQuantity) {
+        promotionProducts.get(productName).appliedSoldQuantity(soldQuantity);
+    }
+
+    public void appliedPurchaseQuantityToProduct(String productName, int soldQuantity) {
+        products.get(productName).appliedSoldQuantity(soldQuantity);
+    }
+
 }
