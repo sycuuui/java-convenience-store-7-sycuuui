@@ -13,12 +13,16 @@ public class Products {
         this.promotionProducts = new HashMap<>();
     }
 
+    private PromotionProduct findPromotionProduct(String productName) {
+        return promotionProducts.get(productName);
+    }
+
     private int getTotalProductQuantity(String productName) {
         return products.get(productName).getQuantity();
     }
 
     private int getTotalPromotionProductQuantity(String productName) {
-        return promotionProducts.get(productName).getProductQuantity();
+        return findPromotionProduct(productName).getProductQuantity();
     }
 
     public void addProduct(String productName, Product product, Promotion promotion) {
@@ -33,7 +37,7 @@ public class Products {
     }
 
     public boolean isPromotionPeriod(String productName) {
-        return promotionProducts.get(productName).isPromotionPeriod();
+        return findPromotionProduct(productName).isPromotionPeriod();
     }
 
     /**
@@ -46,6 +50,18 @@ public class Products {
                 + getTotalPromotionProductQuantity(name);
 
         return purchaseQuantity <= totalQuantity;
+    }
+
+    public int getPresentQuantityByPromotionProduct(String productName, int purchaseQuantity) {
+        return findPromotionProduct(productName).calculatePresentQuantity(purchaseQuantity);
+    }
+
+    public int getApplyPromotionQuantityByPromotionProduct(String productName, int presentQuantity) {
+        return findPromotionProduct(productName).calculateApplyPromotionQuantity(presentQuantity);
+    }
+
+    public boolean getIsNeedQuestionAboutAdd(String productName, int purchaseQuantity) {
+        return findPromotionProduct(productName).isNeedQuestionAboutAdd(purchaseQuantity);
     }
 
 }

@@ -37,7 +37,6 @@ public class PromotionProduct {
 
     /**
      * 프로모션 추가 적용 질문이 필요한지 판단 메소드
-     *
      * @param purchaseQuantity
      * @return 남은 수량이 limit-1과 같을 경우 true
      */
@@ -46,5 +45,4 @@ public class PromotionProduct {
         int remainQuantity = purchaseQuantity % limit;
         return (remainQuantity == (limit - 1));
     }
-
 }
