@@ -13,10 +13,10 @@ public class PromotionService {
     private final PurchaseProducts purchaseProducts;
     private final InputHandler inputHandler;
 
-    public PromotionService(Products products, PurchaseProducts purchaseProducts, Input input) {
+    public PromotionService(Products products, PurchaseProducts purchaseProducts, InputHandler inputHandler) {
         this.products = products;
         this.purchaseProducts = purchaseProducts;
-        this.inputHandler = new InputHandler(input);
+        this.inputHandler = inputHandler;
     }
 
     /**

@@ -17,4 +17,8 @@ public class InputHandler {
     public boolean askAboutShortage(String productName, int notApplyPromotionQuantity) {
         return input.requestQuestion(NoticeMessage.SHORTAGE_QUESTION.getShortageMessage(productName, notApplyPromotionQuantity));
     }
+
+    public boolean askAboutMembership() {
+        return input.requestQuestion(NoticeMessage.MEMBERSHIP_QUESTION.getMessage());
+    }
 }

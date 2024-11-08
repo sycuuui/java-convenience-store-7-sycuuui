@@ -1,8 +1,10 @@
 package store.controller;
 
+import store.handler.InputHandler;
 import store.model.product.Products;
 import store.model.promotion.Promotions;
 import store.model.PurchaseProducts;
+import store.service.MembershipService;
 import store.service.PromotionService;
 import store.service.ReadFile;
 import store.service.StoreService;
@@ -31,10 +33,16 @@ public class StoreController {
         Input input = new Input(products);
         String[] splitCommaInput = input.requestProducts();
 
+        InputHandler inputHandler = new InputHandler(input);
+
         StoreService storeService = new StoreService(purchaseProducts);
         storeService.savePurchaseProducts(splitCommaInput);
 
-        PromotionService purchaseService = new PromotionService(products, purchaseProducts, input);
+        PromotionService purchaseService = new PromotionService(products, purchaseProducts, inputHandler);
         purchaseService.applyPromotion();
+
+        MembershipService membershipService = new MembershipService(inputHandler);
+        membershipService.ask();
+
     }
 }
