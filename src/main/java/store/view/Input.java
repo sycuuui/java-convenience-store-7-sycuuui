@@ -2,7 +2,7 @@ package store.view;
 
 import store.message.NoticeMessage;
 import camp.nextstep.edu.missionutils.Console;
-import store.model.Products;
+import store.model.product.Products;
 import store.validator.PurchaseValidator;
 import store.validator.QuestionValidator;
 

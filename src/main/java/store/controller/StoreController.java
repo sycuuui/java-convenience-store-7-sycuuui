@@ -1,7 +1,7 @@
 package store.controller;
 
-import store.model.Products;
-import store.model.Promotions;
+import store.model.product.Products;
+import store.model.promotion.Promotions;
 import store.model.PurchaseProducts;
 import store.service.PurchaseService;
 import store.service.ReadFile;

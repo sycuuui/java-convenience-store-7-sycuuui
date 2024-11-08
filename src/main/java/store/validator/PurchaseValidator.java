@@ -1,7 +1,7 @@
 package store.validator;
 
 import store.message.ErrorMessage;
-import store.model.Products;
+import store.model.product.Products;
 
 import java.util.regex.Pattern;
 

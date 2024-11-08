@@ -1,4 +1,4 @@
-package store.model;
+package store.model.product;
 
 import store.dto.request.ProductReq;
 
@@ -19,5 +19,12 @@ public class Product {
 
     public boolean equalName(String name) {
         return name.equals(this.name);
+    }
+
+    /**
+     * @return ture - 수량이 구매수량보다 작음 false - 수량이 구매수량보다 작거나 같음
+     */
+    public boolean isLessProductQuantity(int purchaseQuantity) {
+        return (qunantity < purchaseQuantity);
     }
 }

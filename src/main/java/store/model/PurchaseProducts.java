@@ -14,7 +14,7 @@ public class PurchaseProducts {
         purchaseDetails.put(name, purchaseQuantity);
     }
 
-    public HashMap<String,Integer> getPurchaseDetails() {
+    public HashMap<String, Integer> getPurchaseDetails() {
         return purchaseDetails;
     }
 }

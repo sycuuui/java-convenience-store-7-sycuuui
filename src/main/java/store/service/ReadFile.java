@@ -4,10 +4,10 @@ import store.dto.request.ProductReq;
 import store.dto.request.PromotionReq;
 import store.enumerate.FileValues;
 import store.message.ErrorMessage;
-import store.model.Product;
-import store.model.Products;
-import store.model.Promotion;
-import store.model.Promotions;
+import store.model.product.Product;
+import store.model.product.Products;
+import store.model.promotion.Promotion;
+import store.model.promotion.Promotions;
 import store.view.Output;
 
 import java.io.*;
@@ -85,7 +85,7 @@ public class ReadFile {
         ProductReq productReq = new ProductReq(name, price, quantity);
         Product product = new Product(productReq);
 
-        products.addProduct(product, findPromotion(promotion));
+        products.addProduct(name, product, findPromotion(promotion));
     }
 
     public Promotion findPromotion(String name) {

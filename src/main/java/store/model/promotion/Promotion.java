@@ -1,8 +1,7 @@
-package store.model;
+package store.model.promotion;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import store.dto.request.PromotionReq;
-import store.enumerate.PromotionStatus;
 
 import java.time.LocalDate;
 
@@ -19,7 +18,7 @@ public class Promotion {
         this.end_date = promotionReq.end_date();
     }
 
-    public boolean isNowContainDuration() {
+    public boolean isActive() {
         if (!start_date.isAfter(DateTimes.now().toLocalDate())) {
             return false;
         }
@@ -29,10 +28,7 @@ public class Promotion {
         return true;
     }
 
-    public PromotionStatus getPromotionStatus() {
-        if (get == 1 && buy == 1) {
-            return PromotionStatus.ONE_PLUS_ONE;
-        }
-        return PromotionStatus.TWO_PLUS_ONE;
+    public int calculatorLimit() {
+        return buy + get;
     }
 }

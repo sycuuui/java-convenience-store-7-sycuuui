@@ -1,9 +1,6 @@
 package store.service;
 
-import store.model.Products;
-import store.model.Promotions;
 import store.model.PurchaseProducts;
-import store.view.Input;
 
 public class StoreService {
     private PurchaseProducts purchaseProducts;
