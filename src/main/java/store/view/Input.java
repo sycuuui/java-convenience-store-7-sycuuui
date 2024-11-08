@@ -34,8 +34,8 @@ public class Input {
         System.out.println(question);
 
         String input = Console.readLine();
-        while (questionValidator.correctInput(input)) {
-            input = Console.readLine();
+            while (questionValidator.correctInput(input)) {
+                input = Console.readLine();
         }
 
         if (input.equals("Y")) {
@@ -43,4 +43,5 @@ public class Input {
         }
         return false;
     }
+
 }

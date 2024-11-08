@@ -10,11 +10,11 @@ public class InputHandler {
         this.input = input;
     }
 
-    public boolean askAboutBenefit(String productName) {
-        return input.requestQuestion(NoticeMessage.BENEFIT_QUESTION.getBenefitMessage(productName));
+    public boolean askAboutAdd(String productName) {
+        return input.requestQuestion(NoticeMessage.ADD_QUESTION.getAddMessage(productName));
     }
 
-    public boolean askAboutShortage(String productName, int countNotPromotion) {
-        return input.requestQuestion(NoticeMessage.SHORTAGE_QUESTION.getShortageMessage(productName, countNotPromotion));
+    public boolean askAboutShortage(String productName, int notApplyPromotionQuantity) {
+        return input.requestQuestion(NoticeMessage.SHORTAGE_QUESTION.getShortageMessage(productName, notApplyPromotionQuantity));
     }
 }

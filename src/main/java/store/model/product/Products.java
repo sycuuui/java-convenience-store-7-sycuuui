@@ -17,11 +17,11 @@ public class Products {
         return promotionProducts.get(productName);
     }
 
-    private int getTotalProductQuantity(String productName) {
+    private int getProductQuantity(String productName) {
         return products.get(productName).getQuantity();
     }
 
-    private int getTotalPromotionProductQuantity(String productName) {
+    private int getPromotionProductQuantity(String productName) {
         return findPromotionProduct(productName).getProductQuantity();
     }
 
@@ -46,8 +46,8 @@ public class Products {
      * @return 구매할 양이 상품 개수보다 많으면 false
      **/
     public boolean isNotOverProductsQuantity(String name, int purchaseQuantity) {
-        int totalQuantity = getTotalProductQuantity(name)
-                + getTotalPromotionProductQuantity(name);
+        int totalQuantity = getProductQuantity(name)
+                + getPromotionProductQuantity(name);
 
         return purchaseQuantity <= totalQuantity;
     }
@@ -56,12 +56,16 @@ public class Products {
         return findPromotionProduct(productName).calculatePresentQuantity(purchaseQuantity);
     }
 
-    public int getApplyPromotionQuantityByPromotionProduct(String productName, int presentQuantity) {
-        return findPromotionProduct(productName).calculateApplyPromotionQuantity(presentQuantity);
+    public int getAppliedPromotionQuantityByPromotionProduct(String productName, int presentQuantity) {
+        return findPromotionProduct(productName).calculateAppliedPromotionQuantity(presentQuantity);
     }
 
-    public boolean getIsNeedQuestionAboutAdd(String productName, int purchaseQuantity) {
+    public boolean getIsNeedQuestionAboutAddByPromotionProduct(String productName, int purchaseQuantity) {
         return findPromotionProduct(productName).isNeedQuestionAboutAdd(purchaseQuantity);
+    }
+
+    public boolean isOverPromotionProductQuantity(String productName, int purchaseQuantity) {
+        return (getPromotionProductQuantity(productName) < purchaseQuantity);
     }
 
 }

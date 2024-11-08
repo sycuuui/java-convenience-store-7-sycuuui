@@ -14,6 +14,11 @@ public class PurchaseProducts {
         purchaseDetails.put(name, purchaseQuantity);
     }
 
+    public void minusNotApplyPromotionQuantity(String name, int notApplyPromotionQuantity) {
+        int quantity = purchaseDetails.get(name);
+        purchaseDetails.put(name, (quantity - notApplyPromotionQuantity));
+    }
+
     public HashMap<String, Integer> getPurchaseDetails() {
         return purchaseDetails;
     }
