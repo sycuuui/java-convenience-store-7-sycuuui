@@ -18,5 +18,20 @@ public class MembershipService {
         this.apply = inputHandler.askAboutMembership();
     }
 
+    public int processMembership(int total) {
+        if (apply) {
+            return calculateMembershipDiscount(total);
+        }
+        return 0;
+    }
 
+    private int calculateMembershipDiscount(int total) {
+        int discountPrice = total % DISCOUNT_PERCENT;
+
+        return checkLimit(discountPrice);
+    }
+
+    private int checkLimit(int discountPrice) {
+        return Math.min(discountPrice, DISCOUNT_LIMIT);
+    }
 }
