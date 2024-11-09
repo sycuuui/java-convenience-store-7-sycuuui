@@ -1,6 +1,6 @@
 package store.view;
 
-import store.message.NoticeMessage;
+import store.message.InputMessage;
 import camp.nextstep.edu.missionutils.Console;
 import store.model.product.Products;
 import store.validator.PurchaseValidator;
@@ -18,11 +18,11 @@ public class Input {
     }
 
     public String[] requestProducts() {
-        System.out.println(NoticeMessage.INPUT_PRODUCT.getMessage());
+        System.out.println(InputMessage.INPUT_PRODUCT.getMessage());
 
         String input = Console.readLine();
         String[] splitCommaInput = input.split(",", -1);
-        while (purchaseValidator.requestProducts(splitCommaInput, products)) {
+        while (!purchaseValidator.requestProducts(splitCommaInput, products)) {
             input = Console.readLine();
             splitCommaInput = input.split(",", -1);
         }
@@ -34,7 +34,7 @@ public class Input {
         System.out.println(question);
 
         String input = Console.readLine();
-            while (questionValidator.correctInput(input)) {
+            while (!questionValidator.correctInput(input)) {
                 input = Console.readLine();
         }
 

@@ -1,6 +1,6 @@
 package store.handler;
 
-import store.message.NoticeMessage;
+import store.message.InputMessage;
 import store.view.Input;
 
 public class InputHandler {
@@ -11,14 +11,14 @@ public class InputHandler {
     }
 
     public boolean askAboutAdd(String productName) {
-        return input.requestQuestion(NoticeMessage.ADD_QUESTION.getAddMessage(productName));
+        return input.requestQuestion(InputMessage.ADD_QUESTION.getAddMessage(productName));
     }
 
     public boolean askAboutShortage(String productName, int notApplyPromotionQuantity) {
-        return input.requestQuestion(NoticeMessage.SHORTAGE_QUESTION.getShortageMessage(productName, notApplyPromotionQuantity));
+        return input.requestQuestion(InputMessage.SHORTAGE_QUESTION.getShortageMessage(productName, notApplyPromotionQuantity));
     }
 
     public boolean askAboutMembership() {
-        return input.requestQuestion(NoticeMessage.MEMBERSHIP_QUESTION.getMessage());
+        return input.requestQuestion(InputMessage.MEMBERSHIP_QUESTION.getMessage());
     }
 }

@@ -18,14 +18,15 @@ public class MembershipService {
         this.apply = inputHandler.askAboutMembership();
     }
 
-    public int processMembership(int total) {
+    public int processMembership(int totalPurchaseAmount, int totalPromotionAmount) {
         if (apply) {
-            return calculateMembershipDiscount(total);
+            return calculateMembershipDiscount(totalPurchaseAmount, totalPromotionAmount);
         }
         return 0;
     }
 
-    private int calculateMembershipDiscount(int total) {
+    private int calculateMembershipDiscount(int totalPurchaseAmount, int totalPromotionAmount) {
+        int total = totalPurchaseAmount - totalPromotionAmount;
         int discountPrice = total % DISCOUNT_PERCENT;
 
         return checkLimit(discountPrice);

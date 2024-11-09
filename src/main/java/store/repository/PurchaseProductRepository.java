@@ -18,9 +18,7 @@ public class PurchaseProductRepository {
             String name = productNameAndQuantity[0];
             int quantity = Integer.parseInt(productNameAndQuantity[1]);
 
-            purchaseProducts.putPurchaseDetail(name, quantity);
+            purchaseProducts.putInitialPurchaseDetails(name, quantity);
         }//end for loop
     }
-
-
 }

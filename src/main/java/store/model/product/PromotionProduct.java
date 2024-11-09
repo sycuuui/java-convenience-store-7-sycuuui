@@ -50,4 +50,8 @@ public class PromotionProduct {
     public void appliedSoldQuantity(int soldQuantity) {
         product.appliedSoldQuantity(soldQuantity);
     }
+
+    public int getPayment(int purchaseQuantity) {
+        return product.payment(purchaseQuantity);
+    }
 }

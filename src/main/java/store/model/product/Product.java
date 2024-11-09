@@ -17,6 +17,10 @@ public class Product {
         return this.qunantity;
     }
 
+    public int payment(int purchaseQuantity) {
+        return price * purchaseQuantity;
+    }
+
     public void appliedSoldQuantity(int soldQuantity) {
         this.qunantity -= soldQuantity;
     }

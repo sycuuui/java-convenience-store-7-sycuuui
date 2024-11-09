@@ -14,7 +14,7 @@ public class ProductService {
     }
 
     public void updateProductsStock() {
-        purchaseProducts.getPurchaseDetails().forEach(this::processProduct);
+        purchaseProducts.getIntitalPurchaseDetails().forEach(this::processProduct);
     }
 
     private void processProduct(String productName, int purchaseQuantity) {

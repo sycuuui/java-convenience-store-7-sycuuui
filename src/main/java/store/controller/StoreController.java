@@ -13,9 +13,9 @@ import store.repository.PurchaseProductRepository;
 import store.view.Input;
 
 public class StoreController {
-    private final Products products;
-    private final Promotions promotions;
-    private final PurchaseProducts purchaseProducts;
+    private Products products;
+    private Promotions promotions;
+    private PurchaseProducts purchaseProducts;
 
     public StoreController() {
         this.products = new Products();

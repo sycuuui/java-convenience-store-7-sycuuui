@@ -76,4 +76,12 @@ public class Products {
         products.get(productName).appliedSoldQuantity(soldQuantity);
     }
 
+    public int getPaymentToProduct(String productName, int purchaseQuantity) {
+        return products.get(productName).payment(purchaseQuantity);
+    }
+
+    public int getPaymentToPromotionProduct(String productName, int purchaseQuantity) {
+        return promotionProducts.get(productName).getPayment(purchaseQuantity);
+    }
+
 }
