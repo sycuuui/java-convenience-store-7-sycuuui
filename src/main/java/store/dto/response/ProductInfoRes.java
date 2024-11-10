@@ -1,6 +1,6 @@
 package store.dto.response;
 
-public record ProductInfo(
+public record ProductInfoRes(
         String name,
         int price,
         int stock,

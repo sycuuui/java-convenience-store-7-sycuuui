@@ -1,10 +1,13 @@
 package store.view;
 
-import store.dto.response.ProductInfo;
+import store.dto.response.PriceResultRes;
+import store.dto.response.ProductInfoRes;
 import store.message.ErrorMessage;
 import store.message.OutputMessage;
 import store.model.product.Products;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
@@ -33,8 +36,8 @@ public class Output {
         Set<String> productNames = products.getAllProductsNames();
 
         productNames.forEach(productName -> {
-            Optional<ProductInfo> promotionProductInfo = Optional.ofNullable(products.getInfoToPromotionProduct(productName));
-            Optional<ProductInfo> generalProductInfo = Optional.ofNullable(products.getInfoToGeneralProduct(productName));
+            Optional<ProductInfoRes> promotionProductInfo = Optional.ofNullable(products.getInfoToPromotionProduct(productName));
+            Optional<ProductInfoRes> generalProductInfo = Optional.ofNullable(products.getInfoToGeneralProduct(productName));
 
             //프로모션 상품에 대한 출력이 먼저
             promotionProductInfo.ifPresent(this::printProductInfo);
@@ -47,16 +50,16 @@ public class Output {
      *
      * @param productInfo 상품 정보
      */
-    private void printProductInfo(ProductInfo productInfo) {
+    private void printProductInfo(ProductInfoRes productInfo) {
         String stockText = "재고 없음";
         if (productInfo.stock() > 0) {
-            stockText = productInfo.stock() + "개";
+            stockText = setNumberFormat(productInfo.stock()) + "개";
         }
 
         StringBuilder output = new StringBuilder();
         output.append("- ")
                 .append(productInfo.name()).append(" ")
-                .append(productInfo.price()).append("원 ")
+                .append(setNumberFormat(productInfo.price())).append("원 ")
                 .append(stockText);
 
         if (productInfo.promotionName() != null) {
@@ -64,5 +67,34 @@ public class Output {
         }
 
         System.out.println(output);
+    }
+
+    public void printPurchaseProduct(String productName, int quantity, int totalPrice) {
+        System.out.printf("%-10s %-5s %-8s\n", productName, setNumberFormat(quantity), setNumberFormat(totalPrice));
+    }
+
+    public void printPresentProduct(String productName, int quantity) {
+        System.out.printf("%-10s %-5s\n", productName, setNumberFormat(quantity));
+    }
+
+    public void printPriceResultSection(PriceResultRes priceResultRes) {
+        System.out.printf("%-10s %-5s %-8s\n", "총구매액", setNumberFormat(priceResultRes.totalQuantity()), setNumberFormat(priceResultRes.totalPurchaseAmount()));
+        System.out.printf("%-10s %10s\n", "행사할인", setNumberFormat(priceResultRes.totalDiscountAmount()));
+        System.out.printf("%-10s %10s\n", "멤버십할인", setNumberFormat(priceResultRes.membershipDiscountAmount()));
+        System.out.printf("%-10s %10s\n", "내실돈", setNumberFormat(priceResultRes.finalAmount()));
+    }
+
+    public void printOutPutMessage(OutputMessage outputMessage) {
+        System.out.println(outputMessage.getMessage());
+    }
+
+    public void printCategory() {
+        System.out.printf("%-10s %-5s %-8s\n", "상품명", "수량", "금액");
+    }
+
+    public String setNumberFormat(int amount) {
+        NumberFormat formatter = NumberFormat.getInstance(Locale.KOREA);
+
+        return formatter.format(amount);
     }
 }

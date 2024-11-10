@@ -1,7 +1,7 @@
 package store.model.product;
 
 import store.dto.request.ProductReq;
-import store.dto.response.ProductInfo;
+import store.dto.response.ProductInfoRes;
 
 public class Product {
     private final String name;
@@ -26,7 +26,7 @@ public class Product {
         this.qunantity -= soldQuantity;
     }
 
-    public ProductInfo getProductInfo(String promotionName) {
-        return new ProductInfo(this.name, this.price, this.qunantity, promotionName);
+    public ProductInfoRes getProductInfo(String promotionName) {
+        return new ProductInfoRes(this.name, this.price, this.qunantity, promotionName);
     }
 }

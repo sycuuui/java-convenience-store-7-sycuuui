@@ -3,7 +3,7 @@ package store.service;
 import store.handler.InputHandler;
 
 public class MembershipService {
-    private final int DISCOUNT_PERCENT = 30;
+    private final float DISCOUNT_PERCENT = 0.3F;
     private final int DISCOUNT_LIMIT = 8000;
 
     private InputHandler inputHandler;
@@ -27,7 +27,7 @@ public class MembershipService {
 
     private int calculateMembershipDiscount(int totalPurchaseAmount, int totalPromotionAmount) {
         int total = totalPurchaseAmount - totalPromotionAmount;
-        int discountPrice = total % DISCOUNT_PERCENT;
+        int discountPrice = (int) (total * DISCOUNT_PERCENT);
 
         return checkLimit(discountPrice);
     }

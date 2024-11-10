@@ -1,6 +1,6 @@
 package store.model.product;
 
-import store.dto.response.ProductInfo;
+import store.dto.response.ProductInfoRes;
 import store.model.promotion.Promotion;
 
 import java.util.HashMap;
@@ -96,7 +96,7 @@ public class Products {
         return promotionProducts.get(productName).getPayment(purchaseQuantity);
     }
 
-    public ProductInfo getInfoToGeneralProduct(String productName) {
+    public ProductInfoRes getInfoToGeneralProduct(String productName) {
         Product product = generalProducts.get(productName);
         if (product != null) {
             return product.getProductInfo(null);
@@ -104,7 +104,7 @@ public class Products {
         return null;
     }
 
-    public ProductInfo getInfoToPromotionProduct(String productName) {
+    public ProductInfoRes getInfoToPromotionProduct(String productName) {
         PromotionProduct promotionProduct = promotionProducts.get(productName);
         if (promotionProduct != null) {
             return promotionProduct.getPromotionProductInfo();

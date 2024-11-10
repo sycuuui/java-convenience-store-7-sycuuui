@@ -1,6 +1,6 @@
 package store.model.product;
 
-import store.dto.response.ProductInfo;
+import store.dto.response.ProductInfoRes;
 import store.model.promotion.Promotion;
 
 public class PromotionProduct {
@@ -16,7 +16,7 @@ public class PromotionProduct {
         return product.getQuantity();
     }
 
-    public ProductInfo getPromotionProductInfo() {
+    public ProductInfoRes getPromotionProductInfo() {
         return product.getProductInfo(promotion.getName());
     }
 

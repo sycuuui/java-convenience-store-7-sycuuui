@@ -25,10 +25,10 @@ public class Promotion {
     }
 
     public boolean isActive() {
-        if (!start_date.isAfter(DateTimes.now().toLocalDate())) {
+        if (!start_date.isBefore(DateTimes.now().toLocalDate())) {
             return false;
         }
-        if (!end_date.isBefore(DateTimes.now().toLocalDate())) {
+        if (!end_date.isAfter(DateTimes.now().toLocalDate())) {
             return false;
         }
         return true;

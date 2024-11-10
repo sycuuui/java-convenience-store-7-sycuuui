@@ -10,6 +10,7 @@ import store.service.ProductService;
 import store.service.PromotionService;
 import store.repository.PromotionRepository;
 import store.repository.PurchaseProductRepository;
+import store.service.ReceiptService;
 import store.view.Input;
 import store.view.Output;
 
@@ -34,8 +35,11 @@ public class StoreController {
         InputHandler inputHandler = new InputHandler(input);
 
         processPurchaseProducts(input);
-        processBenefit(inputHandler);
+
+        MembershipService membershipService = new MembershipService(inputHandler);
+        processPresent(inputHandler, membershipService);
         processStock();
+        processResult(output, membershipService);
     }
 
     public void processNoticeInitial(Output output) {
@@ -58,17 +62,21 @@ public class StoreController {
         purchaseProductRepository.savePurchaseProducts(splitCommaInput);
     }
 
-    public void processBenefit(InputHandler inputHandler) {
+    public void processPresent(InputHandler inputHandler, MembershipService membershipService) {
         PromotionService purchaseService = new PromotionService(products, purchaseProducts, inputHandler);
         purchaseService.applyPromotion();
 
-        MembershipService membershipService = new MembershipService(inputHandler);
         membershipService.ask();
     }
 
     public void processStock() {
         ProductService productService = new ProductService(products, purchaseProducts);
         productService.updateProductsStock();
+    }
+
+    public void processResult(Output output, MembershipService membershipService) {
+        ReceiptService receiptService = new ReceiptService(products, purchaseProducts, membershipService, output);
+        receiptService.processReceipt();
     }
 
 }
