@@ -2,6 +2,7 @@ package store.view;
 
 import store.dto.response.ProductInfo;
 import store.message.ErrorMessage;
+import store.message.OutputMessage;
 import store.model.product.Products;
 
 import java.util.Optional;
@@ -16,6 +17,12 @@ public class Output {
 
     public static void printErrorMessage(ErrorMessage errorMessage) {
         System.out.println(errorMessage.getMessage());
+    }
+
+    public void printHello() {
+        String helloText = OutputMessage.HELLO.getMessage();
+
+        System.out.println(helloText);
     }
 
     /**

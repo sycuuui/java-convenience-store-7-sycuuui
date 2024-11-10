@@ -28,7 +28,7 @@ public class StoreController {
         processFile();
 
         Output output = new Output(products);
-        output.printProducts();
+        processNoticeInitial(output);
 
         Input input = new Input(products);
         InputHandler inputHandler = new InputHandler(input);
@@ -36,6 +36,11 @@ public class StoreController {
         processPurchaseProducts(input);
         processBenefit(inputHandler);
         processStock();
+    }
+
+    public void processNoticeInitial(Output output) {
+        output.printHello();
+        output.printProducts();
     }
 
     public void processFile() {
