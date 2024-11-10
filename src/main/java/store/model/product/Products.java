@@ -1,15 +1,20 @@
 package store.model.product;
 
+import store.dto.response.ProductInfo;
 import store.model.promotion.Promotion;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Products {
-    private final HashMap<String, Product> products;
+    //일반 상품
+    private final HashMap<String, Product> generalProducts;
+    //프로모션 상품
     private final HashMap<String, PromotionProduct> promotionProducts;
 
     public Products() {
-        this.products = new HashMap<>();
+        this.generalProducts = new HashMap<>();
         this.promotionProducts = new HashMap<>();
     }
 
@@ -17,8 +22,8 @@ public class Products {
         return promotionProducts.get(productName);
     }
 
-    private int getProductQuantity(String productName) {
-        return products.get(productName).getQuantity();
+    private int getGeneralProductQuantity(String productName) {
+        return generalProducts.get(productName).getQuantity();
     }
 
     private int getPromotionProductQuantity(String productName) {
@@ -29,11 +34,19 @@ public class Products {
         if (promotion != null) {
             promotionProducts.put(productName, new PromotionProduct(product, promotion));
         }
-        products.put(productName, product);
+        generalProducts.put(productName, product);
     }
 
-    public boolean isExistProduct(String productName) {
-        return (products.get(productName) != null);
+    public boolean isExistProducts(String productName) {
+        return (generalProducts.containsKey(productName)) && (promotionProducts.containsKey(productName));
+    }
+
+    public boolean isExistPromotionProduct(String productName) {
+        return promotionProducts.containsKey(productName);
+    }
+
+    public boolean isExistGeneralProduct(String productName) {
+        return generalProducts.containsKey(productName);
     }
 
     public boolean isPromotionPeriod(String productName) {
@@ -46,10 +59,21 @@ public class Products {
      * @return 구매할 양이 상품 개수보다 많으면 false
      **/
     public boolean isNotOverProductsQuantity(String name, int purchaseQuantity) {
-        int totalQuantity = getProductQuantity(name)
+        int totalQuantity = getGeneralProductQuantity(name)
                 + getPromotionProductQuantity(name);
 
         return purchaseQuantity <= totalQuantity;
+    }
+
+    public boolean isOverPromotionProductQuantity(String productName, int purchaseQuantity) {
+        return (getPromotionProductQuantity(productName) < purchaseQuantity);
+    }
+
+    public Set<String> getAllProductsNames() {
+        Set<String> allProductNames = new HashSet<>(generalProducts.keySet());
+        allProductNames.addAll(promotionProducts.keySet());
+
+        return allProductNames;
     }
 
     public int getPresentQuantityByPromotionProduct(String productName, int purchaseQuantity) {
@@ -64,24 +88,36 @@ public class Products {
         return findPromotionProduct(productName).isNeedQuestionAboutAdd(purchaseQuantity);
     }
 
-    public boolean isOverPromotionProductQuantity(String productName, int purchaseQuantity) {
-        return (getPromotionProductQuantity(productName) < purchaseQuantity);
+    public int getPaymentToGeneralProduct(String productName, int purchaseQuantity) {
+        return generalProducts.get(productName).payment(purchaseQuantity);
+    }
+
+    public int getPaymentToPromotionProduct(String productName, int purchaseQuantity) {
+        return promotionProducts.get(productName).getPayment(purchaseQuantity);
+    }
+
+    public ProductInfo getInfoToGeneralProduct(String productName) {
+        Product product = generalProducts.get(productName);
+        if (product != null) {
+            return product.getProductInfo(null);
+        }
+        return null;
+    }
+
+    public ProductInfo getInfoToPromotionProduct(String productName) {
+        PromotionProduct promotionProduct = promotionProducts.get(productName);
+        if (promotionProduct != null) {
+            return promotionProduct.getPromotionProductInfo();
+        }
+        return null;
     }
 
     public void appliedPurchaseQuantityToPromotionProduct(String productName, int soldQuantity) {
         promotionProducts.get(productName).appliedSoldQuantity(soldQuantity);
     }
 
-    public void appliedPurchaseQuantityToProduct(String productName, int soldQuantity) {
-        products.get(productName).appliedSoldQuantity(soldQuantity);
-    }
-
-    public int getPaymentToProduct(String productName, int purchaseQuantity) {
-        return products.get(productName).payment(purchaseQuantity);
-    }
-
-    public int getPaymentToPromotionProduct(String productName, int purchaseQuantity) {
-        return promotionProducts.get(productName).getPayment(purchaseQuantity);
+    public void appliedPurchaseQuantityToGeneralProduct(String productName, int soldQuantity) {
+        generalProducts.get(productName).appliedSoldQuantity(soldQuantity);
     }
 
 }

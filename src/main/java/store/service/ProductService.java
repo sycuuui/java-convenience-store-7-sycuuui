@@ -25,6 +25,6 @@ public class ProductService {
             products.appliedPurchaseQuantityToPromotionProduct(productName, appliedPromotionQuantity);
         }
 
-        products.appliedPurchaseQuantityToProduct(productName, purchaseQuantity - appliedPromotionQuantity);
+        products.appliedPurchaseQuantityToGeneralProduct(productName, purchaseQuantity - appliedPromotionQuantity);
     }
 }

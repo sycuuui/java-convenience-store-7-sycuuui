@@ -11,6 +11,7 @@ import store.service.PromotionService;
 import store.repository.PromotionRepository;
 import store.repository.PurchaseProductRepository;
 import store.view.Input;
+import store.view.Output;
 
 public class StoreController {
     private Products products;
@@ -25,6 +26,9 @@ public class StoreController {
 
     public void play() {
         processFile();
+
+        Output output = new Output(products);
+        output.printProducts();
 
         Input input = new Input(products);
         InputHandler inputHandler = new InputHandler(input);

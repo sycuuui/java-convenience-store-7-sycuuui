@@ -29,7 +29,7 @@ public class ReceiptService {
 
         HashMap<String, Integer> intitalPurchaseDetails = purchaseProducts.getIntitalPurchaseDetails();
         intitalPurchaseDetails.forEach((productName, quantity) -> {
-            int payment = products.getPaymentToProduct(productName, quantity);
+            int payment = products.getPaymentToGeneralProduct(productName, quantity);
             totalPurchaseAmount.addAndGet(payment);
         });
 

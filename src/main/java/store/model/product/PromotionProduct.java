@@ -1,5 +1,6 @@
 package store.model.product;
 
+import store.dto.response.ProductInfo;
 import store.model.promotion.Promotion;
 
 public class PromotionProduct {
@@ -13,6 +14,10 @@ public class PromotionProduct {
 
     public int getProductQuantity() {
         return product.getQuantity();
+    }
+
+    public ProductInfo getPromotionProductInfo() {
+        return product.getProductInfo(promotion.getName());
     }
 
     public boolean isPromotionPeriod() {

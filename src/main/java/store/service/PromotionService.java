@@ -59,7 +59,7 @@ public class PromotionService {
 
     private boolean checkPromotion(String productName) {
         //프로모션 해당 상품 확인
-        if (!products.isExistProduct(productName)) {
+        if (products.isExistPromotionProduct(productName)) {
             return false;
         }
         //프로모션 기간 확인

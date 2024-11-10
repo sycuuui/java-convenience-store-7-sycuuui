@@ -45,7 +45,7 @@ public class PromotionRepository {
         LocalDate start_date = LocalDate.parse(datas[3]);
         LocalDate end_date = LocalDate.parse(datas[4]);
 
-        PromotionReq promotionReq = new PromotionReq(buy, get, start_date, end_date);
+        PromotionReq promotionReq = new PromotionReq(name, buy, get, start_date, end_date);
         Promotion promotion = new Promotion(promotionReq);
 
         promotions.putPromotion(name, promotion);

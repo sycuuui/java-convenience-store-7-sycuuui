@@ -61,7 +61,7 @@ public class PurchaseValidator {
     }
 
     public boolean isExistProduct(String name, Products products) {
-        boolean findExistProduct = products.isExistProduct(name);
+        boolean findExistProduct = products.isExistProducts(name);
         if (!findExistProduct) {
             System.out.println(ErrorMessage.NO_EXISTS.getMessage());
             return false;
