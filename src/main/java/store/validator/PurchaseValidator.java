@@ -9,13 +9,17 @@ public class PurchaseValidator {
     public boolean requestProducts(String[] splitInput, Products products) {
         for (String str : splitInput) {
             //","구분자로 분리된 문자열에 대한 검증 (빈 값, 표현식 검증)
-            splitCommaValidator(str);
+            if(!splitCommaValidator(str)) {
+                return false;
+            }
 
             String replaceStr = str.replace("[", "");
             String replaceStr2 = replaceStr.replace("]", "");
 
             //"-"구분자로 분리된 문자열에 대한 검증 (존재하는 상품, 수량 검증)
-            splitDashValidator(replaceStr2, products);
+            if(!splitDashValidator(replaceStr2, products)) {
+                return false;
+            }
         }
         return true;
     }
