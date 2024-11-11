@@ -84,7 +84,6 @@ public class PromotionService {
         if (!products.isPromotionPeriod(productName)) {
             return false;
         }
-        purchaseProducts.addPurchaseQunatity(productName);
         return true;
     }
 
@@ -102,6 +101,7 @@ public class PromotionService {
         if (!inputHandler.askAboutAdd(productName)) {
             return 0;
         }
+        purchaseProducts.addPurchaseQunatity(productName);
         return 1;
     }
 
