@@ -15,23 +15,24 @@ import store.view.Input;
 import store.view.Output;
 
 public class StoreController {
-    private Products products;
-    private Promotions promotions;
-    private PurchaseProducts purchaseProducts;
+    private final Input input;
+    private final Output output;
+    private final Products products;
+    private final Promotions promotions;
+    private final PurchaseProducts purchaseProducts;
 
     public StoreController() {
         this.products = new Products();
         this.promotions = new Promotions();
         this.purchaseProducts = new PurchaseProducts();
+        this.input = new Input();
+        this.output = new Output();
     }
 
     public void play() {
         processFile();
-
-        Output output = new Output(products);
         processNoticeInitial(output);
 
-        Input input = new Input(products);
         InputHandler inputHandler = new InputHandler(input);
 
         processPurchaseProducts(input);
@@ -63,10 +64,11 @@ public class StoreController {
 
     /**
      * 구매하려는 물품 관련 행동하는 메소드
+     *
      * @param input
      */
     public void processPurchaseProducts(Input input) {
-        String[] splitCommaInput = input.requestProducts();
+        String[] splitCommaInput = input.requestProducts(products);
         PurchaseProductRepository purchaseProductRepository = new PurchaseProductRepository(purchaseProducts);
 
         purchaseProductRepository.savePurchaseProducts(splitCommaInput);

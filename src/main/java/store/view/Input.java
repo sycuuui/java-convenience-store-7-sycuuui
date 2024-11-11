@@ -9,15 +9,13 @@ import store.validator.QuestionValidator;
 public class Input {
     private PurchaseValidator purchaseValidator;
     private QuestionValidator questionValidator;
-    private Products products;
 
-    public Input(Products products) {
+    public Input() {
         purchaseValidator = new PurchaseValidator();
         questionValidator = new QuestionValidator();
-        this.products = products;
     }
 
-    public String[] requestProducts() {
+    public String[] requestProducts(Products products) {
         System.out.println(InputMessage.INPUT_PRODUCT.getMessage());
 
         String input = Console.readLine();
