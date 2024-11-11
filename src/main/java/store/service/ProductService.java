@@ -17,6 +17,11 @@ public class ProductService {
         purchaseProducts.getIntitalPurchaseDetails().forEach(this::processProduct);
     }
 
+    /**
+     * 구매한 상품의 종류에 따라 각각의 수량 재고 업데이트 메소드
+     * @param productName 구매한 상품 이름
+     * @param purchaseQuantity 구매한 상품 수량 (프로모션+일반)
+     */
     private void processProduct(String productName, int purchaseQuantity) {
         int appliedPromotionQuantity = 0;
 

@@ -37,18 +37,23 @@ public class Products {
         generalProducts.put(productName, product);
     }
 
+    /**
+     * 존재하는 상품인지 판별 메소드 (일반 상품과 프로모션 상품 모두 탐색)
+     */
     public boolean isExistProducts(String productName) {
         return (generalProducts.containsKey(productName)) && (promotionProducts.containsKey(productName));
     }
 
+    /**
+     * 존재하는 상품인지 판별 메소드 (프로모션 상품에서만 탐색)
+     */
     public boolean isExistPromotionProduct(String productName) {
         return promotionProducts.containsKey(productName);
     }
 
-    public boolean isExistGeneralProduct(String productName) {
-        return generalProducts.containsKey(productName);
-    }
-
+    /**
+     * 프로모션 기간에 해당되는 프로모션 상품인지 판단 메소드
+     */
     public boolean isPromotionPeriod(String productName) {
         return findPromotionProduct(productName).isPromotionPeriod();
     }
@@ -65,10 +70,20 @@ public class Products {
         return purchaseQuantity <= totalQuantity;
     }
 
+    /**
+     * 프로모션 상품의 수량이 구매 수량과 비교 메소드
+     * @param productName 상품 이름
+     * @param purchaseQuantity 구매하려는 수량
+     * @return true : 구매수량이 보유 수량보다 많을 경우
+     */
     public boolean isOverPromotionProductQuantity(String productName, int purchaseQuantity) {
         return (getPromotionProductQuantity(productName) < purchaseQuantity);
     }
 
+    /**
+     * 프로모션 상품과 일반 상품들이 보유하고 있는 상품 이름들 리스트 생성 메소드
+     * @return 상품 이름 리스
+     */
     public Set<String> getAllProductsNames() {
         Set<String> allProductNames = new HashSet<>(generalProducts.keySet());
         allProductNames.addAll(promotionProducts.keySet());
@@ -112,10 +127,16 @@ public class Products {
         return null;
     }
 
+    /**
+     * 구매한 프로모션 상품 수량 보유 리스트에 적용 메소드
+     */
     public void appliedPurchaseQuantityToPromotionProduct(String productName, int soldQuantity) {
         promotionProducts.get(productName).appliedSoldQuantity(soldQuantity);
     }
 
+    /**
+     * 구매한 상품 수량 보유 리스트에 적용 메소드
+     */
     public void appliedPurchaseQuantityToGeneralProduct(String productName, int soldQuantity) {
         generalProducts.get(productName).appliedSoldQuantity(soldQuantity);
     }

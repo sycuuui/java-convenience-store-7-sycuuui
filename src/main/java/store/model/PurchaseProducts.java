@@ -24,11 +24,19 @@ public class PurchaseProducts {
         purchasePromotionDetails.put(productName, quantityRes);
     }
 
+    /**
+     * 사용자가 프로모션 미적용 상품에 대한 구매 의사가 없을 시 적용되는 메소드
+     * @param productName 미적용 상품 이름
+     * @param UnappliedPromotionQuantity 미적용 상품 수량
+     */
     public void minusUnappliedPromotionQuantity(String productName, int UnappliedPromotionQuantity) {
         int quantity = initialPurchaseDetails.get(productName);
         initialPurchaseDetails.put(productName, (quantity - UnappliedPromotionQuantity));
     }
 
+    /**
+     * 구매 리스트에 있는지 판단 메소드
+     */
     public boolean hasPurchasePromotion(String productName) {
         return purchasePromotionDetails.containsKey(productName);
     }
