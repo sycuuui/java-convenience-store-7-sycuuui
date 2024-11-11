@@ -36,7 +36,7 @@ public class StoreController {
 
         processPurchaseProducts(input);
 
-        MembershipService membershipService = new MembershipService(inputHandler);
+        MembershipService membershipService = new MembershipService();
         processPresent(inputHandler, membershipService);
         processStock();
         processResult(output, membershipService);
@@ -79,7 +79,8 @@ public class StoreController {
         PromotionService purchaseService = new PromotionService(products, purchaseProducts, inputHandler);
         purchaseService.applyPromotion();
 
-        membershipService.ask();
+        boolean isAppliedMembership = inputHandler.askAboutMembership();
+        membershipService.setApply(isAppliedMembership);
     }
 
     /**
