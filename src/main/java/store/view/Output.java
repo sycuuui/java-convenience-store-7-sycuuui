@@ -12,11 +12,6 @@ import java.util.Optional;
 import java.util.Set;
 
 public class Output {
-    private final Products products;
-
-    public Output(Products products) {
-        this.products = products;
-    }
 
     public static void printErrorMessage(ErrorMessage errorMessage) {
         System.out.println(errorMessage.getMessage());
@@ -32,7 +27,7 @@ public class Output {
      * 현재 상품 목록 이름을 통해 일반 상품과 프로모션 상품 정보 가져오고
      * 정보가 있으면 printProductInfo 실행
      */
-    public void printProducts() {
+    public void printProducts(Products products) {
         Set<String> productNames = products.getAllProductsNames();
 
         productNames.forEach(productName -> {

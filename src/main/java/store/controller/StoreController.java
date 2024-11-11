@@ -47,7 +47,7 @@ public class StoreController {
      */
     public void processNoticeInitial(Output output) {
         output.printHello();
-        output.printProducts();
+        output.printProducts(products);
     }
 
     /**
