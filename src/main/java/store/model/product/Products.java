@@ -43,6 +43,7 @@ public class Products {
     public void putProduct(String productName, Product product, Promotion promotion) {
         if (promotion != null) {
             promotionProducts.put(productName, new PromotionProduct(product, promotion));
+            return;
         }
         generalProducts.put(productName, product);
     }

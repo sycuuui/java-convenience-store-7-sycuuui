@@ -37,6 +37,11 @@ public class Output {
             //프로모션 상품에 대한 출력이 먼저
             promotionProductInfo.ifPresent(this::printProductInfo);
             generalProductInfo.ifPresent(this::printProductInfo);
+
+            if(promotionProductInfo.isPresent() && generalProductInfo.isEmpty()) {
+                ProductInfoRes productInfoRes = new ProductInfoRes(promotionProductInfo.get().name(),promotionProductInfo.get().price(),0,null);
+                printProductInfo(productInfoRes);
+            }
         });
     }
 
