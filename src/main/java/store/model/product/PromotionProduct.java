@@ -25,10 +25,18 @@ public class PromotionProduct {
     }
 
     /**
-     * @param purchaseQuantity 구매할 수량
+     * 프로모션 재고에서의 증정 수량
+     *
      * @return 증정 수량
      */
-    public int calculatePresentQuantity(int purchaseQuantity) {
+    public int calculatePresentQuantityByProduct() {
+        return (product.getQuantity() / promotion.calculatorLimit());
+    }
+
+    /**
+     * 프로모션 증정 수량 계산
+     */
+    public int calculatePresentQuantityByPurchase(int purchaseQuantity) {
         return (purchaseQuantity / promotion.calculatorLimit());
     }
 

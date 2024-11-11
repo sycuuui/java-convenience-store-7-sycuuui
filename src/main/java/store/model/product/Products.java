@@ -72,7 +72,8 @@ public class Products {
 
     /**
      * 프로모션 상품의 수량이 구매 수량과 비교 메소드
-     * @param productName 상품 이름
+     *
+     * @param productName      상품 이름
      * @param purchaseQuantity 구매하려는 수량
      * @return true : 구매수량이 보유 수량보다 많을 경우
      */
@@ -82,6 +83,7 @@ public class Products {
 
     /**
      * 프로모션 상품과 일반 상품들이 보유하고 있는 상품 이름들 리스트 생성 메소드
+     *
      * @return 상품 이름 리스
      */
     public Set<String> getAllProductsNames() {
@@ -91,8 +93,12 @@ public class Products {
         return allProductNames;
     }
 
-    public int getPresentQuantityByPromotionProduct(String productName, int purchaseQuantity) {
-        return findPromotionProduct(productName).calculatePresentQuantity(purchaseQuantity);
+    public int getPresentQuantityByProduct(String productName) {
+        return findPromotionProduct(productName).calculatePresentQuantityByProduct();
+    }
+
+    public int getPresentQuantityByPurchase(String productName, int purchaseQuantity) {
+        return findPromotionProduct(productName).calculatePresentQuantityByPurchase(purchaseQuantity);
     }
 
     public int getAppliedPromotionQuantityByPromotionProduct(String productName, int presentQuantity) {

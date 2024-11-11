@@ -3,7 +3,6 @@ package store.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import store.handler.InputHandler;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,7 +20,7 @@ public class MembershipServiceTest {
         int totalPurchaseAmount = 5000;
         int totalPromotionAmount = 3000;
 
-        int result = membershipService.calculateMembershipDiscount(totalPurchaseAmount,totalPromotionAmount);
+        int result = membershipService.calculateMembershipDiscount(totalPurchaseAmount, totalPromotionAmount);
         assertThat(result).isEqualTo(600);
     }
 

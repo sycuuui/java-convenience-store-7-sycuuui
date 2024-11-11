@@ -42,22 +42,30 @@ public class PromotionService {
         return processPromotion(productName, purchaseQuantity);
     }
 
-    private Optional<QuantityRes> processPromotion(String productName, int purchaseQuantity) {
-        int presentQuantity = products.getPresentQuantityByPromotionProduct(productName, purchaseQuantity);
-        int appliedPromotionQuantity = products.getAppliedPromotionQuantityByPromotionProduct(productName, presentQuantity);
+    /**
+     * 프로모션 수량과 구매 수량 비교하여 각 행동 실행
+     * @param productName
+     * @param purchaseQuantity
+     * @return
+     */
+    public Optional<QuantityRes> processPromotion(String productName, int purchaseQuantity) {
+        int presentQuantity;
+        int appliedPromotionQuantity;
 
         //프로모션 수량이 구매 수량보다 크거나 같을때
         if (!products.isOverPromotionProductQuantity(productName, purchaseQuantity)) {
-            presentQuantity = applyAdditionalPromotionQuantity(productName, purchaseQuantity, presentQuantity);
+            presentQuantity = products.getPresentQuantityByPurchase(productName,purchaseQuantity) + applyAdditionalPromotionQuantity(productName, purchaseQuantity);
             appliedPromotionQuantity = products.getAppliedPromotionQuantityByPromotionProduct(productName, presentQuantity);
             return Optional.of(new QuantityRes(presentQuantity, appliedPromotionQuantity));
         }
+        presentQuantity = products.getPresentQuantityByProduct(productName);
+        appliedPromotionQuantity = products.getAppliedPromotionQuantityByPromotionProduct(productName, presentQuantity);
 
         handleUnappliedPromotionQuantity(productName, purchaseQuantity, appliedPromotionQuantity);
         return Optional.of(new QuantityRes(presentQuantity, appliedPromotionQuantity));
     }
 
-    private boolean checkPromotion(String productName) {
+    public boolean checkPromotion(String productName) {
         //프로모션 해당 상품 확인
         if (!products.isExistPromotionProduct(productName)) {
             return false;
@@ -74,17 +82,16 @@ public class PromotionService {
      *
      * @param productName      상품 이름
      * @param purchaseQuantity 구매 수량
-     * @param presentQuantity  할인 수량
      * @return 할인 수량
      */
-    private int applyAdditionalPromotionQuantity(String productName, int purchaseQuantity, int presentQuantity) {
-        if (products.getIsNeedQuestionAboutAddByPromotionProduct(productName, purchaseQuantity)) {
-            return presentQuantity;
+    public int applyAdditionalPromotionQuantity(String productName, int purchaseQuantity) {
+        if (!products.getIsNeedQuestionAboutAddByPromotionProduct(productName, purchaseQuantity)) {
+            return 0;
         }
         if (!inputHandler.askAboutAdd(productName)) {
-            return presentQuantity;
+            return 0;
         }
-        return (presentQuantity + 1);
+        return 1;
     }
 
     /**
@@ -94,11 +101,11 @@ public class PromotionService {
      * @param purchaseQuantity         구매 수량
      * @param appliedPromotionQuantity 프로모션 적용된 상품 수량
      */
-    private void handleUnappliedPromotionQuantity(String productName, int purchaseQuantity, int appliedPromotionQuantity) {
+    public void handleUnappliedPromotionQuantity(String productName, int purchaseQuantity, int appliedPromotionQuantity) {
         int UnappliedPromotionQuantity = purchaseQuantity - appliedPromotionQuantity;
 
         if (UnappliedPromotionQuantity > 0) {
-            if (inputHandler.askAboutShortage(productName, UnappliedPromotionQuantity)) {
+            if (!inputHandler.askAboutShortage(productName, UnappliedPromotionQuantity)) {
                 purchaseProducts.minusUnappliedPromotionQuantity(productName, UnappliedPromotionQuantity);
             }
         }//end if
