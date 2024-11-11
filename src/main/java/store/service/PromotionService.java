@@ -49,20 +49,30 @@ public class PromotionService {
      * @return
      */
     public Optional<QuantityRes> processPromotion(String productName, int purchaseQuantity) {
-        int presentQuantity;
-        int appliedPromotionQuantity;
-
         //프로모션 수량이 구매 수량보다 크거나 같을때
         if (!products.isOverPromotionProductQuantity(productName, purchaseQuantity)) {
-            presentQuantity = products.getPresentQuantityByPurchase(productName,purchaseQuantity) + applyAdditionalPromotionQuantity(productName, purchaseQuantity);
-            appliedPromotionQuantity = products.getAppliedPromotionQuantityByPromotionProduct(productName, presentQuantity);
-            return Optional.of(new QuantityRes(presentQuantity, appliedPromotionQuantity));
+            return processWhenOverQuantity(productName,purchaseQuantity);
         }
-        presentQuantity = products.getPresentQuantityByProduct(productName);
-        appliedPromotionQuantity = products.getAppliedPromotionQuantityByPromotionProduct(productName, presentQuantity);
+        return processWhenNotOverQunatity(productName,purchaseQuantity);
+    }
+
+    /**
+     * 프로모션 수량이 구매 수량보다 크거나 같을 경우
+     * @param productName
+     * @return
+     */
+    public Optional<QuantityRes> processWhenOverQuantity(String productName, int purchaseQuantity) {
+        int presentQuantity = products.getPresentQuantityByPurchase(productName,purchaseQuantity) + applyAdditionalPromotionQuantity(productName, purchaseQuantity);
+        int appliedPromotionQuantity = products.getAppliedPromotionQuantityByPromotionProduct(productName, presentQuantity);
+        return Optional.of(new QuantityRes(presentQuantity, appliedPromotionQuantity));
+    }
+
+    public Optional<QuantityRes> processWhenNotOverQunatity(String productName, int purchaseQuantity) {
+        int presentQuantity = products.getPresentQuantityByProduct(productName);
+        int appliedPromotionQuantity = products.getAppliedPromotionQuantityByPromotionProduct(productName, presentQuantity);
 
         handleUnappliedPromotionQuantity(productName, purchaseQuantity, appliedPromotionQuantity);
-        return Optional.of(new QuantityRes(presentQuantity, appliedPromotionQuantity));
+        return Optional.of(new QuantityRes(presentQuantity, products.getPromotionProductQuantity(productName)));
     }
 
     public boolean checkPromotion(String productName) {
@@ -74,6 +84,7 @@ public class PromotionService {
         if (!products.isPromotionPeriod(productName)) {
             return false;
         }
+        purchaseProducts.addPurchaseQunatity(productName);
         return true;
     }
 

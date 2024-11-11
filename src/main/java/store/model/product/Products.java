@@ -5,6 +5,7 @@ import store.model.promotion.Promotion;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class Products {
@@ -19,15 +20,24 @@ public class Products {
     }
 
     private PromotionProduct findPromotionProduct(String productName) {
-        return promotionProducts.get(productName);
+        if(promotionProducts.containsKey(productName)){
+            return promotionProducts.get(productName);
+        }
+        return null;
     }
 
     private int getGeneralProductQuantity(String productName) {
-        return generalProducts.get(productName).getQuantity();
+        if(generalProducts.containsKey(productName)){
+            return generalProducts.get(productName).getQuantity();
+        }
+        return 0;
     }
 
-    private int getPromotionProductQuantity(String productName) {
-        return findPromotionProduct(productName).getProductQuantity();
+    public int getPromotionProductQuantity(String productName) {
+        if(findPromotionProduct(productName)!=null) {
+            return findPromotionProduct(productName).getProductQuantity();
+        }
+        return 0;
     }
 
     public void putProduct(String productName, Product product, Promotion promotion) {
@@ -41,7 +51,7 @@ public class Products {
      * 존재하는 상품인지 판별 메소드 (일반 상품과 프로모션 상품 모두 탐색)
      */
     public boolean isExistProducts(String productName) {
-        return (generalProducts.containsKey(productName)) && (promotionProducts.containsKey(productName));
+        return (generalProducts.containsKey(productName)) || (promotionProducts.containsKey(productName));
     }
 
     /**
@@ -94,19 +104,19 @@ public class Products {
     }
 
     public int getPresentQuantityByProduct(String productName) {
-        return findPromotionProduct(productName).calculatePresentQuantityByProduct();
+        return Objects.requireNonNull(findPromotionProduct(productName)).calculatePresentQuantityByProduct();
     }
 
     public int getPresentQuantityByPurchase(String productName, int purchaseQuantity) {
-        return findPromotionProduct(productName).calculatePresentQuantityByPurchase(purchaseQuantity);
+        return Objects.requireNonNull(findPromotionProduct(productName)).calculatePresentQuantityByPurchase(purchaseQuantity);
     }
 
     public int getAppliedPromotionQuantityByPromotionProduct(String productName, int presentQuantity) {
-        return findPromotionProduct(productName).calculateAppliedPromotionQuantity(presentQuantity);
+        return Objects.requireNonNull(findPromotionProduct(productName)).calculateAppliedPromotionQuantity(presentQuantity);
     }
 
     public boolean getIsNeedQuestionAboutAddByPromotionProduct(String productName, int purchaseQuantity) {
-        return findPromotionProduct(productName).isNeedQuestionAboutAdd(purchaseQuantity);
+        return Objects.requireNonNull(findPromotionProduct(productName)).isNeedQuestionAboutAdd(purchaseQuantity);
     }
 
     public int getPaymentToGeneralProduct(String productName, int purchaseQuantity) {

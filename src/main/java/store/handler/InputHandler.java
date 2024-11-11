@@ -21,4 +21,8 @@ public class InputHandler {
     public boolean askAboutMembership() {
         return input.requestQuestion(InputMessage.MEMBERSHIP_QUESTION.getMessage());
     }
+
+    public boolean askAboutContinue() {
+        return input.requestQuestion(InputMessage.CONTINUE_QUESTION.getMessage());
+    }
 }

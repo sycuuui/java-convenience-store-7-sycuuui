@@ -19,34 +19,40 @@ public class StoreController {
     private final Output output;
     private final Products products;
     private final Promotions promotions;
-    private final PurchaseProducts purchaseProducts;
+
+    private InputHandler inputHandler;
+    private PurchaseProducts purchaseProducts;
+    private MembershipService membershipService;
 
     public StoreController() {
         this.products = new Products();
         this.promotions = new Promotions();
-        this.purchaseProducts = new PurchaseProducts();
         this.input = new Input();
         this.output = new Output();
     }
 
     public void play() {
         processFile();
-        processNoticeInitial(output);
 
-        InputHandler inputHandler = new InputHandler(input);
+        boolean isContinue;
+        do {
+            processNoticeInitial();
+            inputHandler = new InputHandler(input);
+            purchaseProducts = new PurchaseProducts();
+            processPurchaseProducts();
+            membershipService = new MembershipService();
+            processPresent();
+            processStock();
+            processResult();
 
-        processPurchaseProducts(input);
-
-        MembershipService membershipService = new MembershipService();
-        processPresent(inputHandler, membershipService);
-        processStock();
-        processResult(output, membershipService);
+            isContinue = inputHandler.askAboutContinue();
+        }while (isContinue);
     }
 
     /**
      * 인삿말과 보유 상품들 출력 메소드
      */
-    public void processNoticeInitial(Output output) {
+    public void processNoticeInitial() {
         output.printHello();
         output.printProducts(products);
     }
@@ -64,10 +70,8 @@ public class StoreController {
 
     /**
      * 구매하려는 물품 관련 행동하는 메소드
-     *
-     * @param input
      */
-    public void processPurchaseProducts(Input input) {
+    public void processPurchaseProducts() {
         String[] splitCommaInput = input.requestProducts(products);
         PurchaseProductRepository purchaseProductRepository = new PurchaseProductRepository(purchaseProducts);
 
@@ -77,7 +81,7 @@ public class StoreController {
     /**
      * 구매한 물품들 중 프로모션 상품들 관련 행동 메소드
      */
-    public void processPresent(InputHandler inputHandler, MembershipService membershipService) {
+    public void processPresent() {
         PromotionService purchaseService = new PromotionService(products, purchaseProducts, inputHandler);
         purchaseService.applyPromotion();
 
@@ -96,7 +100,7 @@ public class StoreController {
     /**
      * 구매 결과 관련 행동하는 메소드
      */
-    public void processResult(Output output, MembershipService membershipService) {
+    public void processResult() {
         ReceiptService receiptService = new ReceiptService(products, purchaseProducts, membershipService, output);
         receiptService.processReceipt();
     }

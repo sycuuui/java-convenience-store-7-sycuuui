@@ -24,9 +24,16 @@ public class PurchaseProducts {
         purchasePromotionDetails.put(productName, quantityRes);
     }
 
+    public void addPurchaseQunatity(String productName) {
+        int initQunatity = initialPurchaseDetails.get(productName);
+        int quantity = initQunatity + 1;
+        initialPurchaseDetails.put(productName, quantity);
+    }
+
     /**
      * 사용자가 프로모션 미적용 상품에 대한 구매 의사가 없을 시 적용되는 메소드
-     * @param productName 미적용 상품 이름
+     *
+     * @param productName                미적용 상품 이름
      * @param UnappliedPromotionQuantity 미적용 상품 수량
      */
     public void minusUnappliedPromotionQuantity(String productName, int UnappliedPromotionQuantity) {
