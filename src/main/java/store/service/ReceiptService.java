@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ReceiptService {
-    private Products products;
-    private PurchaseProducts purchaseProducts;
-    private MembershipService membershipService;
-    private Output output;
+    private final Products products;
+    private final PurchaseProducts purchaseProducts;
+    private final MembershipService membershipService;
+    private final Output output;
 
     public ReceiptService(Products products, PurchaseProducts purchaseProducts, MembershipService membershipService, Output output) {
         this.products = products;
@@ -56,7 +56,7 @@ public class ReceiptService {
      *
      * @return 총 구매액
      */
-    private TotalPurchaseRes processTotalPurchase() {
+    public TotalPurchaseRes processTotalPurchase() {
         AtomicInteger totalPurchaseAmount = new AtomicInteger(0);
         AtomicInteger totalPurchaseQuantity = new AtomicInteger(0);
 
@@ -77,7 +77,7 @@ public class ReceiptService {
      *
      * @return 총 할인액과 프로모션 적용된 상품들에 대한 금액
      */
-    private PromotionAmountRes processTotalDiscount() {
+    public PromotionAmountRes processTotalDiscount() {
         AtomicInteger totalDiscountAmount = new AtomicInteger(0);
         AtomicInteger totalPromotionAmount = new AtomicInteger(0);
 

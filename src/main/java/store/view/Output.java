@@ -74,8 +74,8 @@ public class Output {
 
     public void printPriceResultSection(PriceResultRes priceResultRes) {
         System.out.printf("%-10s %-5s %-8s\n", "총구매액", setNumberFormat(priceResultRes.totalQuantity()), setNumberFormat(priceResultRes.totalPurchaseAmount()));
-        System.out.printf("%-10s %10s\n", "행사할인", setNumberFormat(priceResultRes.totalDiscountAmount()));
-        System.out.printf("%-10s %10s\n", "멤버십할인", setNumberFormat(priceResultRes.membershipDiscountAmount()));
+        System.out.printf("%-10s -%10s\n", "행사할인", setNumberFormat(priceResultRes.totalDiscountAmount()));
+        System.out.printf("%-10s -%10s\n", "멤버십할인", setNumberFormat(priceResultRes.membershipDiscountAmount()));
         System.out.printf("%-10s %10s\n", "내실돈", setNumberFormat(priceResultRes.finalAmount()));
     }
 
