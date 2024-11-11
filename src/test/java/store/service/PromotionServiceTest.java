@@ -26,7 +26,7 @@ public class PromotionServiceTest extends NsTest {
         //물 [일반 상품 - price:500, quantity:5]
         Products products = ProductsUtilTest.getProducts();
 
-        promotionService = new PromotionService(products, new PurchaseProducts(), new InputHandler(new Input(products)));
+        promotionService = new PromotionService(products, new PurchaseProducts(), new InputHandler(new Input()));
     }
 
     @DisplayName("프로모션에 존재하지 않는 상품일 경우 테스트")
